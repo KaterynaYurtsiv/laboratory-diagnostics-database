@@ -53,6 +53,26 @@ Number VARCHAR(10) NOT NULL UNIQUE COMMENT 'Номер кабінету',
 Specialization VARCHAR(100) NOT NULL COMMENT 'Спеціалізація кабінету (біохімія, імунологія тощо)'
 ) COMMENT='Довідник кабінетів лабораторії';
 
+CREATE TABLE Assignment (
+    Assignment_ID INT AUTO_INCREMENT PRIMARY KEY,
+    LabAssistant_ID INT NOT NULL COMMENT 'Посилання на лаборанта',
+    Cabinet_ID INT NOT NULL COMMENT 'Посилання на кабінет',
+    Type VARCHAR(30) NOT NULL COMMENT 'Тип ролі лаборанта',
+
+    CONSTRAINT fk_as_lab
+        FOREIGN KEY (LabAssistant_ID)
+        REFERENCES LabAssistant(LabAssistant_ID)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_as_cab
+        FOREIGN KEY (Cabinet_ID)
+        REFERENCES Cabinet(Cabinet_ID)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT uq_as_pair
+        UNIQUE (LabAssistant_ID, Cabinet_ID, Type)
+) COMMENT='Закріплення лаборанта за кабінетом і типом ролі';
+
 REFERENCES Cabinet(Cabinet_ID)
 ON DELETE RESTRICT,
 CONSTRAINT uq_as_pair UNIQUE (LabAssistant_ID, Cabinet_ID, Type)
