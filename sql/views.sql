@@ -1,5 +1,5 @@
 -- Views from section 3.5 of the original Database Systems coursework.
-USE lab_diagnostics;
+USE laboratory_diagnostics;
 
 -- Analysis and referral details
 CREATE VIEW v_analysis_info AS
